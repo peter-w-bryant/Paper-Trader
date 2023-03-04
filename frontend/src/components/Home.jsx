@@ -1,7 +1,7 @@
 function Home() {
     return (
         <>
-            home
+            <h1>Paper Trade Home Page</h1>
         </>
     );
 }

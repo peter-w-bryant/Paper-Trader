@@ -10,7 +10,6 @@ import './App.css';
 function App() {
     return (
         <>
-            <h1>Paper Trader</h1>
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Layout />}>
