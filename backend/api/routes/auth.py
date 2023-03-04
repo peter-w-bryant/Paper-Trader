@@ -23,7 +23,11 @@ def register():
     if request.method == 'POST':
         try:
             hashed_password = bcrypt.generate_password_hash(form.password.data)    # hash password
-            new_user = User(username=form.username.data, password=hashed_password) # create new user
+
+            # create new user
+            new_user = User(username=form.username.data, password=hashed_password,
+                            email=form.email.data, balance=1e4) 
+            
             db.session.add(new_user) # add new user to database
             db.session.commit()      # commit changes to database
             # users = User.query.all() # get all users
@@ -36,6 +40,7 @@ def register():
 class RegisterForm(FlaskForm):
     username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
+    email = StringField(validators=[InputRequired(), Length(min=4, max=50)], render_kw={"placeholder": "Email"})
     submit = SubmitField('Register')
 
     def validate_username(self, username):
