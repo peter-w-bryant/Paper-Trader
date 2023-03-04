@@ -11,7 +11,6 @@ function Registration() {
   const [password, setPassword] = useState("");
   const [buttonText, setButtonText] = useState("Register");
   const [switchText, setSwitchText] = useState("Already have an account? Login here.");
-  // const [loggedIn, setLoggedIn] = useState(loggedIn);
 
   const handleUsername = (event) => {
     // if username is less than 3 characters, display error message
@@ -31,6 +30,8 @@ function Registration() {
 
   const handleRegister = (event) => {
     if (username.length < 3) {
+
+
       alert("Username must be at least 3 characters");
     }
     console.log(username);
