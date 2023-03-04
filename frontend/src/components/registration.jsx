@@ -11,7 +11,6 @@ function Registration() {
   const [password, setPassword] = useState("");
   const [buttonText, setButtonText] = useState("Register");
   const [switchText, setSwitchText] = useState("Already have an account? Login here.");
-  // const [loggedIn, setLoggedIn] = useState(loggedIn);
 
   const handleUsername = (event) => {
     // if username is less than 3 characters, display error message
@@ -40,15 +39,11 @@ function Registration() {
 
   const handleRegister = (event) => {
     if (username.length < 3) {
-      // use bootstrap alert
-      // use react-bootstrap popover
 
 
-      // console.log("Username must be at least 3 characters");
       alert("Username must be at least 3 characters");
 
     }
-    event.preventDefault();
     console.log(username);
   }
   return (
