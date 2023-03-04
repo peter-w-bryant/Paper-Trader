@@ -26,35 +26,18 @@ function Registration() {
 
   const handleSwitch = () => {
     wantToRegister ? setWantToRegister(false) : setWantToRegister(true);
-
-    if(wantToRegister) {
-      // change button text to "Already have an account? Login here."
-      setButtonText("Register");
-      setSwitchText("Already have an account? Login here.");
-    } else {
-      // change button text to "Don't have an account? Register here."
-      setButtonText("Login");
-      setSwitchText("Don't have an account? Register here.");
-    }
+    wantToRegister ? (setButtonText("Register") && setSwitchText("Already have an account? Login here.")) : (setButtonText("Login") && setSwitchText("Don't have an account? Register here."));
   }
 
   const handleRegister = (event) => {
     if (username.length < 3) {
-      // use bootstrap alert
-      // use react-bootstrap popover
-
-
-      // console.log("Username must be at least 3 characters");
       alert("Username must be at least 3 characters");
-
     }
-    event.preventDefault();
     console.log(username);
   }
   return (
-    <div className='root'>
       <Form>
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control placeholder="Enter Username" onChange={handleUsername} />
         </Form.Group>
@@ -66,10 +49,7 @@ function Registration() {
           {buttonText}
         </Button>
       <Button className='submit' onClick={handleSwitch}>{switchText}</Button>
-
       </Form>
-    </div>
-
   );
 }
 
