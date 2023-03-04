@@ -19,12 +19,14 @@ login_manager.login_view = 'login'
 # Routes
 from routes.stocks import stocks
 from routes.auth import auth
+from routes.users import users
 
 with app.app_context():
     # Register blueprints
     app.register_blueprint(stocks) # Stocks blueprint
     app.register_blueprint(auth)   # Auth blueprint
- 
+    app.register_blueprint(users)   # Users blueprint
+
 # Models
 from models import User
 
