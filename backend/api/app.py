@@ -12,7 +12,9 @@ from db import db # Import db object from db.py
 db.init_app(app)  # Initialize db object with app config
 
 bcrypt = Bcrypt() # Bcrypt for hashing passwords
-login_manager = LoginManager() # LoginManager for handling user sessions
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 # Routes
 from routes.stocks import stocks
