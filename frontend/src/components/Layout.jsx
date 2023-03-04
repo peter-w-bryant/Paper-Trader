@@ -18,8 +18,8 @@ function Layout() {
                     <Container>
                         <Navbar.Brand as={Link} to='/'>Home</Navbar.Brand>
                         <Nav className='ms-auto'>
-                            { /*loggedIn === false && <Nav.Link as={Link} to="login">Login / Register</Nav.Link>*/ }
-                            { loggedIn === false && <Nav.Link onClick={handleLogin}>Login / Register</Nav.Link> }
+                            { loggedIn === false && <Nav.Link as={Link} to="registration">Login / Register</Nav.Link> }
+                            {/* { loggedIn === false && <Nav.Link onClick={handleLogin}>Login / Register</Nav.Link> } */}
                             { loggedIn === true && <Nav.Link onClick={handleLogin}>Logout</Nav.Link> }
                         </Nav>
                     </Container>
