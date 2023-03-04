@@ -17,10 +17,6 @@ from app import bcrypt, login_manager # import bcrypt and login_manager from app
 from db import db
 from models import User
 
-@auth.route('/')
-def home():
-    return render_template('home.html')
-
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm() # TODO remove
