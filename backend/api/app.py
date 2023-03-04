@@ -28,7 +28,7 @@ with app.app_context():
     app.register_blueprint(users)   # Users blueprint
 
 # Models
-from models import User
+from models import User, Orders
 
 @login_manager.user_loader
 def load_user(UID):
