@@ -7,7 +7,7 @@ from models import User
 
 users = Blueprint('users', __name__)
 
-@users.route('/user-info', methods=['GET'])
+@users.route('/user-info/<user_id>', methods=['GET'])
 def get_user_info(user_id):
     user = User.query.filter_by(UID=user_id).first()
     return jsonify(
