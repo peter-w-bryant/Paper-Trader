@@ -7,6 +7,10 @@ import LoginContext from "../contexts/loginContext";
 function Layout() {
     const [loggedIn, setLoggedIn] = useState(false);
 
+    const handleLogin = () => {
+        loggedIn ? setLoggedIn(false) : setLoggedIn(true);
+    }
+    
     return (
         <>
             <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
@@ -14,7 +18,9 @@ function Layout() {
                     <Container>
                         <Navbar.Brand as={Link} to='/'>Home</Navbar.Brand>
                         <Nav className='ms-auto'>
-                            { loggedIn === false && <Nav.Link as={Link} to="login">Login / Register</Nav.Link> }
+                            { /*loggedIn === false && <Nav.Link as={Link} to="login">Login / Register</Nav.Link>*/ }
+                            { loggedIn === false && <Nav.Link onClick={handleLogin}>Login / Register</Nav.Link> }
+                            { loggedIn === true && <Nav.Link onClick={handleLogin}>Logout</Nav.Link> }
                         </Nav>
                     </Container>
                 </Navbar> 
