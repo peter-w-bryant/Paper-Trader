@@ -4,7 +4,6 @@ import os
 from datetime import datetime
 from yahoo_fin.stock_info import get_data, get_live_price
 
-
 stocks = Blueprint('stocks', __name__)
 
 # import from resources/all_tickers.json
@@ -14,7 +13,6 @@ file_path = os.path.join(BASE_DIR, 'resources', 'all_tickers.json')
 @stocks.route('/all-tickers', methods=['GET'])
 def get_all_tickers():
     """Returns JSON of all tickers"""
-    print('get_all_tickers()')
     with open(file_path, 'r') as f:
         all_tickers = json.load(f)
     return jsonify(all_tickers)
@@ -42,3 +40,4 @@ def get_current_stock_price(ticker):
             'current_price': stock_info
         }
         return stock_info
+
