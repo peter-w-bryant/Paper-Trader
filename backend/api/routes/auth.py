@@ -38,12 +38,8 @@ def register():
     return render_template('register.html', form=form)
 
 class RegisterForm(FlaskForm):
-    username = StringField(validators=[
-                           InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
-
-    password = PasswordField(validators=[
-                             InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
-
+    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+    password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
     submit = SubmitField('Register')
 
     def validate_username(self, username):
@@ -52,3 +48,30 @@ class RegisterForm(FlaskForm):
         if existing_user_username:
             raise ValidationError(
                 'That username already exists. Please choose a different one.')
+        
+class LoginForm(FlaskForm):
+    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+    password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
+    submit = SubmitField('Login')
+
+@auth.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if request.method == 'POST':
+        user = User.query.filter_by(username=form.username.data).first()
+        if user:
+            if bcrypt.check_password_hash(user.password, form.password.data):
+                login_user(user)
+                return {200: 'Logged in successfully!'}
+            return {401: 'Incorrect password!'}
+        else:
+            return {401: 'Username not found!'}
+    return render_template('login.html', form=form)
+
+@auth.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+    logout_user()
+    # return redirect(url_for('auth.login')) # TODO: remove
+    return {200: 'Logged out successfully!'}
+
