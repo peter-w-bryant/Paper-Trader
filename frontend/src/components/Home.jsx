@@ -7,10 +7,10 @@ function Home() {
     return (
         <>
             <h1>Paper Trade Home Page</h1>
+            <Autosuggest/>
             <Graph name='AAPL'/>
             <All />
             {/* <   Donut /> */}
-            <Autosuggest/>
             {/*<All />*/}
         </>
     );
