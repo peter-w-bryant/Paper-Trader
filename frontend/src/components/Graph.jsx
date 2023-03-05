@@ -37,7 +37,7 @@ function Graph({name}){
 
     useEffect(() => {setTickerForData(name);
         getData(name);
-    }, [name]);
+        console.log("name");}, [name]);
 
     const configPrice = {
 
