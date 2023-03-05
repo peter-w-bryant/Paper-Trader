@@ -5,7 +5,7 @@ function Ticker(props) {
     const [amount, setAmount] = useState(0);
 
     const handleAmount = (event) => {
-        (typeof event.target.value === 'number' || typeof event.target.value === 'bigint') && setAmount(event.target.value);
+        setAmount(parseFloat(event.target.value));
     }
 
     const buy = () => {
