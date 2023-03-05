@@ -46,3 +46,28 @@ def get_current_stock_price(ticker):
             'current_price': stock_info
         }
         return stock_info
+    
+@stocks.route('/leaderboard/<num_leaders>', methods=['GET'])
+def get_leaderboard(num_leaders):
+    """Returns JSON of users with the most value in their portfolio"""
+
+    if request.method == 'GET':
+        users_dict = {} # dict to store keys (usernames) and values (balances + value of all stocks)
+        for user in User.query.all():
+            user_assets = user.balance
+            for order in Orders.query.filter_by(UID=user.UID).all():
+                if not order.is_sold:
+                    user_assets += order.quantity * get_live_price(order.ticker)
+            users_dict[user.username] = user_assets
+
+        # Sort users_dict by value (user's assets)
+        users_dict = dict(sorted(users_dict.items(), key=lambda item: item[1], reverse=True))
+
+        top_leaders = {}
+        for i, (key, value) in enumerate(users_dict.items()):
+            if i < int(num_leaders):
+                top_leaders[key] = value
+            else:
+                break
+
+        return top_leaders 
