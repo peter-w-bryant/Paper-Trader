@@ -52,11 +52,11 @@ function Ticker(props) {
                         <Card.Body>
                             <Card.Title>{props.name}</Card.Title>
                             <ul class="custom-unordered-list">
-                                {props.country !== '' && <Card.Text>Country: {props.country}</Card.Text>}
-                                {props.volume !== '' && <Card.Text>Volume: {props.volume}</Card.Text>}
-                                {props.net_change !== '' && <Card.Text>Net change: {props.net_change}</Card.Text>}
-                                {props.percent_change !== '' && <Card.Text>Percent change: {props.percent_change}</Card.Text>}
-                                {props.last_sale !== '' && <Card.Text>Last sale: {props.last_sale}</Card.Text>}
+                                <li>{props.country !== '' && <Card.Text>Country: {props.country}</Card.Text>}</li>
+                                <li>{props.volume !== '' && <Card.Text>Volume: {props.volume}</Card.Text>}</li>
+                                <li>{props.net_change !== '' && <Card.Text>Net change: {props.net_change}</Card.Text>}</li>
+                                <li>{props.percent_change !== '' && <Card.Text>Percent change: {props.percent_change}</Card.Text>}</li>
+                                <li>{props.last_sale !== '' && <Card.Text>Last sale: {props.last_sale}</Card.Text>}</li>
                             </ul>
                             <Card.Footer>
                                 <Row>
