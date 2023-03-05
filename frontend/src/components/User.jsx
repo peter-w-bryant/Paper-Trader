@@ -90,7 +90,7 @@ const graphStyles = {
 
     return (
         <>  
-            <h1>Balance: {info.balance}</h1>
+            {info.balance > 0 ? <h1>Balance: {info.balance}</h1> : <h1>Calculating...</h1>}
             <div style={{ height: '300px' }}>
             { info.current_holdings !== null && info.current_holdings !== undefined && <ReactHighcharts config={createDonutChart(donutConfig)} {...graphStyles} /> }
 
