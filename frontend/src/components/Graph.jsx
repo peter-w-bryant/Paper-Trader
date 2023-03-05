@@ -12,8 +12,6 @@ function Graph({name}){
         method: 'GET',    
     }).then(res => res.json()).then(json => {
         setPriceData(json);
-        console.log("hi");
-
 
   const temp = [];
     for (const [key, value] of Object.entries(json)) {

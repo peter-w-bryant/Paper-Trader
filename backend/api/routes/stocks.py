@@ -30,11 +30,7 @@ def get_historical_stock_info(ticker):
     
     print(request.args)
     if request.method == 'GET':
-<<<<<<< HEAD
-        start_date = request.args['start_date']
-=======
         start_date = request.args['start_date'] # get start_date from query string
->>>>>>> origin/main
         stock_info = get_data(ticker, start_date=f'{start_date}', end_date=f'{current_date}') # get stock info
         stock_info = stock_info.to_json(orient='index') # convert to json
         stock_info = json.loads(stock_info) # convert to dict
