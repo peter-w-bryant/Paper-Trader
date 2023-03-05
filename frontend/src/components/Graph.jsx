@@ -5,7 +5,7 @@ import moment from 'moment'
 function Graph({name}){
     const options = { style: 'currency', currency: 'USD' };
     const numberFormat = new Intl.NumberFormat('en-US', options);
-    const date = '02/01/2015';
+    const date = '02/01/2019';
     const [priceData, setPriceData] = useState([]);
         
     const getData = (ticker) => fetch(`/historical-stock-info/${ticker}?start_date=${date}`, {    
