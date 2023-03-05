@@ -15,41 +15,72 @@ from models import User, Orders
 @login_required
 def execute_order():
     """Executes new order"""
-    # ticker = request.args.get('ticker') # TODO
-    ticker = 'AAPL' # remove TODO
+    if request.method == 'POST':
+        data = request.get_json()
+        ticker = data['ticker'] 
+        value = data['value'] 
+        ticker_current_price = get_live_price(ticker)
+        # If order is a buy order
+        if data['order_type'] == 'buy':
+            if value > current_user.balance: 
+                return 'Insufficient funds', 400 # return error message
+            share_quantity = value / ticker_current_price # Calculate number of shares 
 
-    # investment = request.args.get('investment') # TODO
-    investment = 100 # remove TODO
+            # Create new order
+            new_order = Orders(
+                UID=current_user.UID,
+                ticker=ticker,
+                quantity= share_quantity,
+                is_sold=False,
+                date=datetime.now()
+            )
+            db.session.add(new_order) # add new order to database
 
-    UID = current_user.UID # get current user's UID
-    balance = current_user.balance # get current user's balance
-
-    if investment > balance: 
-        return 'Insufficient funds', 400 # return error message
+            # Update user's balance
+            user = User.query.filter_by(UID=current_user.UID).first()
+            user.balance = current_user.balance - value
+            db.session.commit() # Commit changes to db
+            return 'Purchase executed successfully!', 200
         
-    ticker_current_price = get_live_price(ticker) # get current price of ticker
-    share_quantity = investment / ticker_current_price # Calculate number of shares 
+        # If order is a sell order
+        elif data['order_type'] == 'sell':
+            user_orders = Orders.query.filter_by(UID=current_user.UID).all() # Get all user's orders
+            cover_orders = [] # List of held orders that can cover the sell order
+            cover_amount = 0  # Total value of held orders that can cover the sell order
+            can_cover = False # Boolean to check if the sell order can be covered
+            for order in user_orders:
 
-    # Create new order
-    new_order = Orders(
-        UID=UID,
-        ticker=ticker,
-        quantity= share_quantity,
-        is_sold=False,
-        date=datetime.now()
-    )
+                # If the order is the same ticker and is not sold
+                if order.ticker == ticker and not order.is_sold:
+                    cover_orders.append(order) # Add the order to the list of orders that can cover the sell order
+                    cover_amount += order.quantity * ticker_current_price # Add the order's value to the value of orders that can cover the sell order
 
-    # Add new order to db
-    db.session.add(new_order)
+                    # If the value of orders that can cover the sell order is greater than or equal to the sell order's value
+                    if cover_amount >= value:
+                        can_cover = True # Set can_cover to True
+                        break
+            if not can_cover:
+                return 'Insufficient shares', 400 # return error message
+            # If the sell order can be covered
+            elif can_cover:
+                for order in cover_orders:
+                    while value > 0:
+                        # If the order's value is less than or equal to the sell order's value
+                        if (order.quantity * ticker_current_price) <= value:
+                            value -= order.quantity * ticker_current_price # Subtract the order's value from the sell order's value
+                            order.is_sold = True # Set the order's is_sold to True
+                            
+                        # If the order's value is greater than the sell order's value
+                        elif (order.quantity * ticker_current_price) > value:
+                            # Subtract the sell order's dollar value from the order's dollar value
+                            order.quantity -= value / ticker_current_price
+                            value = 0 # Set the sell order's value to 0
 
-    # Update user's balance
-    user = User.query.filter_by(UID=UID).first()
-    user.balance = balance - investment
-
-    # Commit changes to db
-    db.session.commit()
-
-    return 'Order executed successfully!', 200
+                # Update user's balance
+                user = User.query.filter_by(UID=current_user.UID).first()
+                user.balance = current_user.balance + value
+                db.session.commit() # Commit changes to db
+                return 'Sale executed successfully!', 200
 
 @users.route('/user-info/<username>', methods=['GET'])
 @login_required
