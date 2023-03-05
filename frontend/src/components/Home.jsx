@@ -1,6 +1,7 @@
 import All from './All'
 import Graph from './Graph';
 import Donut from './donut';
+import Autosuggest from './Autosuggest';
 
 function Home() {
     return (
@@ -9,6 +10,8 @@ function Home() {
             <Graph name='AAPL'/>
             <All />
             {/* <   Donut /> */}
+            <Autosuggest/>
+            {/*<All />*/}
         </>
     );
 }

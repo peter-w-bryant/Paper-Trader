@@ -21,7 +21,7 @@ def get_all_tickers():
     """Returns JSON of all tickers"""
     with open(file_path, 'r') as f:
         all_tickers = json.load(f)
-    return jsonify(all_tickers)
+    return jsonify(all_tickers), 200
 
 @stocks.route('/historical-stock-info/<ticker>', methods=['GET'])
 def get_historical_stock_info(ticker):
@@ -30,11 +30,15 @@ def get_historical_stock_info(ticker):
     
     print(request.args)
     if request.method == 'GET':
+<<<<<<< HEAD
         start_date = request.args['start_date']
+=======
+        start_date = request.args['start_date'] # get start_date from query string
+>>>>>>> origin/main
         stock_info = get_data(ticker, start_date=f'{start_date}', end_date=f'{current_date}') # get stock info
         stock_info = stock_info.to_json(orient='index') # convert to json
         stock_info = json.loads(stock_info) # convert to dict
-        return stock_info
+        return stock_info, 200
     
 @stocks.route('/current_stock_price/<ticker>', methods=['GET'])
 def get_current_stock_price(ticker):
@@ -45,12 +49,11 @@ def get_current_stock_price(ticker):
         stock_info = {
             'current_price': stock_info
         }
-        return stock_info
+        return stock_info, 200
     
 @stocks.route('/leaderboard/<num_leaders>', methods=['GET'])
 def get_leaderboard(num_leaders):
     """Returns JSON of users with the most value in their portfolio"""
-
     if request.method == 'GET':
         users_dict = {} # dict to store keys (usernames) and values (balances + value of all stocks)
         for user in User.query.all():
@@ -70,4 +73,4 @@ def get_leaderboard(num_leaders):
             else:
                 break
 
-        return top_leaders 
+        return top_leaders, 200

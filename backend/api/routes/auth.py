@@ -22,36 +22,44 @@ def register():
     if request.method == 'POST': 
         data = request.get_json()
         try:
+            # check if username already exists
+            user = User.query.filter_by(username=data['username']).first()
+
+            if user != None:
+                return 'Username already exists!', 409 # return error message
+
             hashed_password = bcrypt.generate_password_hash(data['password']) # hash password
             
             new_user = User(username=data['username'], password=hashed_password, # create new user
                             email=data['email'], balance=1e4)
+            
             db.session.add(new_user) # add new user to database
             db.session.commit()      # commit changes to database
-
-            return {201: 'User created successfully!'} # return success message
+            return 'User created successfully!', 201 # return success message
+        
         except IntegrityError:
-            return {409: 'Username already exists!'}   # return error message
+            return 'Username already exists!', 409   # return error message
+        
+        except Exception as e:
+            print(e)
+            return str(e), 500
        
 @auth.route('/login', methods=['GET', 'POST'])
-def login():
-    # print all users in user tables
-    users = User.query.all()
-    for user in users:
-        print(user.username)
+def login():   
     if request.method == 'POST':
         data = request.get_json()
         user = User.query.filter_by(username=data['username']).first()
         if user != None:
             if bcrypt.check_password_hash(user.password, data['password']):
                 login_user(user)
-                return {200: 'Logged in successfully!'}
-            return {401: 'Incorrect password!'}
+                return 'Logged in successfully!', 200
+            
+            return 'Incorrect password!', 401
         else:
-            return {401: 'Username not found!'}
+            return 'Username not found!', 401
         
 @auth.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
-    return {200: 'Logged out successfully!'}
+    return 'Logged out successfully!', 200

@@ -5,14 +5,10 @@ import { Link, Outlet } from 'react-router-dom';
 import LoginContext from "../contexts/loginContext";
 
 function Layout() {
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState('');
 
-    const handleLogin = () => {
-        loggedIn ? setLoggedIn(false) : setLoggedIn(true);
-        !loggedIn && (logout())
-    }
-
-    const logout = () => {
+    const handleLogout = () => {
+        setLoggedIn('');
         fetch('/logout', {
             method: 'POST',
             credentials: 'include'
@@ -25,9 +21,10 @@ function Layout() {
                 <Navbar bg='dark' variant='dark'>
                     <Container>
                         <Navbar.Brand as={Link} to='/'>Home</Navbar.Brand>
+                        { loggedIn !== '' && <Nav><Nav.Link as={Link} to='profile'>Profile</Nav.Link></Nav> }
                         <Nav className='ms-auto'>
-                            { loggedIn === false && <Nav.Link as={Link} to="registration">Login / Register</Nav.Link> }
-                            { loggedIn === true && <Nav.Link onClick={handleLogin}>Logout</Nav.Link> }
+                            { loggedIn === '' && <Nav.Link as={Link} to="registration">Login / Register</Nav.Link> }
+                            { loggedIn !== '' && <Nav.Link onClick={handleLogout}>Logout</Nav.Link> }
                         </Nav>
                     </Container>
                 </Navbar> 
