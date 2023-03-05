@@ -5,7 +5,7 @@ import moment from 'moment'
 function Graph({name}){
     const options = { style: 'currency', currency: 'USD' };
     const numberFormat = new Intl.NumberFormat('en-US', options);
-    const date = '02/01/2015';
+    const date = '02/01/2019';
     const [priceData, setPriceData] = useState([]);
         
     const getData = (ticker) => fetch(`/historical-stock-info/${ticker}?start_date=${date}`, {    
@@ -26,7 +26,18 @@ function Graph({name}){
 
     const [tickerForData, setTickerForData] = useState(name);
 
+    // detect enter key
+    
+    function handleSearch(){
+        
+    }
+
+
     useEffect(() => {getData(tickerForData)}, []);
+
+    useEffect(() => {setTickerForData(name);
+        getData(name);
+        console.log("name");}, [name]);
 
     const configPrice = {
 
@@ -120,7 +131,6 @@ function Graph({name}){
     return (
         <div>
             <ReactHighcharts config={configPrice}></ReactHighcharts>
-            {/* <button onClick={() => console.log(priceData)}>click</button> */}
         </div>
     )
 }

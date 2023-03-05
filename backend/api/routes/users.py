@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 from yahoo_fin.stock_info import get_data, get_live_price
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user # for handling user sessions
+import copy
 
 users = Blueprint('users', __name__)
 
@@ -11,7 +12,7 @@ from app import bcrypt, login_manager # import bcrypt and login_manager from app
 from db import db
 from models import User, Orders
 
-@users.route('/execute_order', methods=['GET', 'POST'])
+@users.route('/execute-order', methods=['GET', 'POST'])
 @login_required
 def execute_order():
     """Executes new order"""
@@ -24,7 +25,7 @@ def execute_order():
         if data['order_type'] == 'buy':
             if value > current_user.balance: 
                 return 'Insufficient funds', 400 # return error message
-            share_quantity = value / ticker_current_price # Calculate number of shares 
+            share_quantity = value / ticker_current_price # Calculate number of shares
 
             # Create new order
             new_order = Orders(
@@ -34,12 +35,14 @@ def execute_order():
                 is_sold=False,
                 date=datetime.now()
             )
+
             db.session.add(new_order) # add new order to database
 
             # Update user's balance
             user = User.query.filter_by(UID=current_user.UID).first()
             user.balance = current_user.balance - value
             db.session.commit() # Commit changes to db
+
             return 'Purchase executed successfully!', 200
         
         # If order is a sell order
@@ -49,7 +52,8 @@ def execute_order():
             cover_amount = 0  # Total value of held orders that can cover the sell order
             can_cover = False # Boolean to check if the sell order can be covered
             for order in user_orders:
-
+                if order.quantity == 0:
+                    continue
                 # If the order is the same ticker and is not sold
                 if order.ticker == ticker and not order.is_sold:
                     cover_orders.append(order) # Add the order to the list of orders that can cover the sell order
@@ -63,24 +67,38 @@ def execute_order():
                 return 'Insufficient shares', 400 # return error message
             # If the sell order can be covered
             elif can_cover:
+                sell_price = copy.deepcopy(value) # Create a copy of the sell order's value
                 for order in cover_orders:
-                    while value > 0:
-                        # If the order's value is less than or equal to the sell order's value
-                        if (order.quantity * ticker_current_price) <= value:
-                            value -= order.quantity * ticker_current_price # Subtract the order's value from the sell order's value
-                            order.is_sold = True # Set the order's is_sold to True
-                            
-                        # If the order's value is greater than the sell order's value
-                        elif (order.quantity * ticker_current_price) > value:
-                            # Subtract the sell order's dollar value from the order's dollar value
-                            order.quantity -= value / ticker_current_price
-                            value = 0 # Set the sell order's value to 0
+                    if order.ticker == ticker and not order.is_sold:
+                        # print("Order: ", order)
+                        while value > 0:
+                            # If the order's value is less than or equal to the sell order's value
+                            if (order.quantity * ticker_current_price) <= value:
+                                value -= order.quantity * ticker_current_price # Subtract the order's value from the sell order's value
+                                order.is_sold = True # Set the order's is_sold to True
+                                
+                            # If the order's value is greater than the sell order's value
+                            elif (order.quantity * ticker_current_price) > value:
+                                # Subtract the sell order's dollar value from the order's dollar value
+                                order.quantity -= value / ticker_current_price
+                                value = 0 # Set the sell order's value to 0
 
                 # Update user's balance
                 user = User.query.filter_by(UID=current_user.UID).first()
-                user.balance = current_user.balance + value
+                user.balance = current_user.balance + sell_price
                 db.session.commit() # Commit changes to db
                 return 'Sale executed successfully!', 200
+
+# TODO: Remove, used for testing  
+def delete_all_orders(UID):
+    """Deletes all orders for a user"""
+    # Set users balance to 10000
+    user = User.query.filter_by(UID=UID).first()
+    user.balance = 10000
+    orders = Orders.query.filter_by(UID=UID).all()
+    for order in orders:
+        db.session.delete(order)
+    db.session.commit()
 
 @users.route('/user-info/<username>', methods=['GET'])
 @login_required

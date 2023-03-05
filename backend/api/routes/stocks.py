@@ -28,7 +28,6 @@ def get_historical_stock_info(ticker):
     """Returns JSON of stock info"""
     current_date = datetime.now().strftime('%m/%d/%Y') # today's date
     
-    print(request.args)
     if request.method == 'GET':
         start_date = request.args['start_date'] # get start_date from query string
         stock_info = get_data(ticker, start_date=f'{start_date}', end_date=f'{current_date}') # get stock info

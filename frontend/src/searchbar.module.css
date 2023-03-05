@@ -3,7 +3,12 @@
 }
 
 .input {
-  width: 240px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  width: 340px;
   height: 50px;
   padding: 10px 20px;
   font-family: Helvetica, sans-serif;
@@ -29,14 +34,19 @@
 .suggestionsContainerOpen {
   display: block;
   position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
   top: 51px;
-  width: 280px;
+  width: 380px;
   border: 1px solid #aaa;
   background-color: #fff;
   font-family: Helvetica, sans-serif;
   font-weight: 300;
   font-size: 16px;
-  border-radius: 0 0 4px 4px;
+  max-height: 300px;
+  overflow-y: auto;
   z-index: 2;
 }
 
