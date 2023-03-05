@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect  } from 'react'
+import React, { useState, useEffect  } from 'react'
 import ReactHighcharts from 'react-highcharts/ReactHighstock.src'
 import moment from 'moment'
 

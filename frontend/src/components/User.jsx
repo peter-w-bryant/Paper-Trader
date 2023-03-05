@@ -12,7 +12,7 @@ function User(props){
         fetch(`/user-info/${loggedIn}`).then(res => res.json()).then(json => {
             setInfo(json);
         }).catch(err => console.log(err));
-    }, []);
+    }, [loggedIn]);
 
     return (
         <>  
