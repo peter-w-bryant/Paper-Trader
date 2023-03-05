@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+
+  }
+
+.card {
+    height:500px;
+    width: 350px;
+}
+
+.custom-unordered-list {
+    background-color: lightgray;
+}
+
+.form-group-custom .form-control {
+    width: 150px;
+    /* make the form all in the center */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.form.label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CSS for form label */
+.form-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

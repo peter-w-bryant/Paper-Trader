@@ -34,9 +34,7 @@ function Home() {
             </div>
             <Autosuggest parentCallback={handleSearchResult} />
             <Graph name={searchTicker} />
-            { !showMore && <Button style = {{marginLeft: '1%'}} onClick={submit}>show more</Button> }
-            { showMore && <Button style = {{marginLeft: '1%'}} onClick={submit}>show less</Button>}
-            { showMore && <All />}
+            { <All />}
         </>
     );
 }
