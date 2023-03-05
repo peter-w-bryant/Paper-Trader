@@ -82,8 +82,8 @@ class AutoSuggest extends React.Component {
 
   // When user selected a suggestion with keyboard or mouse.
   onSuggestionSelected = (event, suggestion) => {
-    console.log(suggestion.suggestionValue);
-    console.log(`Selected ${suggestion.suggestion.symbol}`);
+    // Display the corresponding graph
+    this.props.parentCallback(suggestion.suggestionValue);
   };
 
   render() {
