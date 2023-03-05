@@ -1,5 +1,10 @@
 {
-  "dependencies": {
-    "react-bootstrap": "^2.7.2"
+  "name": "Paper-Trader",
+  "version": "1.0.0",
+  "description": "A React and Flask web-based database application that allows users to manage simulated brokerage accounts and track the performance of their trades.",
+  "repository": "https://github.com/peter-w-bryant/Paper-Trader.git",
+  "scripts": {
+    "frontend": "cd frontend && yarn start",
+    "backend": "cd backend && flask run"
   }
 }
