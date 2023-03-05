@@ -67,7 +67,8 @@ function Registration() {
         throw new Error();
       }
     }).catch(err => console.log('register:' + err));
-    navigate('/');
+
+    handleLogin();
   }
 
   const handleLogin = () => {
@@ -90,6 +91,7 @@ function Registration() {
         throw new Error();
       }
     }).catch(err => console.log('login: ' + err));
+    
     navigate('/');
   }
 
