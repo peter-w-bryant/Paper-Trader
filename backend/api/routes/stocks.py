@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify, current_app, request
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user # for handling user sessions
+from datetime import datetime
 import json
 import os
-from datetime import datetime
 from yahoo_fin.stock_info import get_data, get_live_price
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user # for handling user sessions
 
 
 stocks = Blueprint('stocks', __name__)
