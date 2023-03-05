@@ -76,6 +76,7 @@ function Ticker(props) {
                                 {props.net_change !== '' && <li><Card.Text>Net change: {props.net_change}</Card.Text></li>}
                                 {props.percent_change !== '' && <li><Card.Text>Percent change: {props.percent_change}</Card.Text></li>}
                                 {props.last_sale !== '' && <li><Card.Text>Last sale: {props.last_sale}</Card.Text></li>}
+                                {props.total_value !== undefined && <li><Card.Text>Value Owned: ${props.total_value}</Card.Text></li>}
                             </ul>
 
                             <Card.Footer>
