@@ -49,7 +49,6 @@ def get_current_stock_price(ticker):
 @stocks.route('/leaderboard/<num_leaders>', methods=['GET'])
 def get_leaderboard(num_leaders):
     """Returns JSON of users with the most value in their portfolio"""
-
     if request.method == 'GET':
         users_dict = {} # dict to store keys (usernames) and values (balances + value of all stocks)
         for user in User.query.all():
