@@ -82,7 +82,7 @@ function Registration() {
       credentials: 'include'
     }).then(res => {
       if (res.status === 200) {
-        setLoggedIn(true);
+        setLoggedIn(username);
       } else if (res.status === 401) {
         alert("username or password wrong");
       } else {
