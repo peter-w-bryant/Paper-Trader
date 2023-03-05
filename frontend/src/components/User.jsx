@@ -48,15 +48,16 @@ function User(props){
         
 
         // get values from array in info.current_holdings which is an array of objects from which we need the ticker and total_value
-        for( let i = 0; i < info.current_holdings.length; i++){
-            let x = (info.current_holdings[i].total_value/(10000-info.balance))*100;
-            x=Math.round(x * 10) / 10
+        if (info.current_holdings !== null)
+            for( let i = 0; i < info.current_holdings.length; i++){
+                let x = (info.current_holdings[i].total_value/(10000-info.balance))*100;
+                x=Math.round(x * 10) / 10
 
-            temp.push([info.current_holdings[i].ticker, x]); 
-            let tickerI = tickers.filter(ticker => ticker.symbol === info.current_holdings[i].ticker)[0];
-            tickerI.total_value = info.current_holdings[i].total_value;
-            portfolioList.push(tickers.filter(ticker => ticker.symbol === info.current_holdings[i].ticker)[0]);
-        }
+                temp.push([info.current_holdings[i].ticker, x]); 
+                let tickerI = tickers.filter(ticker => ticker.symbol === info.current_holdings[i].ticker)[0];
+                tickerI.total_value = info.current_holdings[i].total_value;
+                portfolioList.push(tickers.filter(ticker => ticker.symbol === info.current_holdings[i].ticker)[0]);
+            }
         setDonutInfo(temp);
         console.log(temp);
         setPortfolio(portfolioList);
@@ -88,12 +89,10 @@ const graphStyles = {
             <ReactHighcharts config={createDonutChart(donutConfig)} {...graphStyles} />
 
             <Row>
-                    <h1>Portfolio</h1>
-                    {
-                        portfolio.map(ticker => <Col xs={12} sm={6} md={4} xl={3} key={ticker.symbol}><Ticker {...ticker}/></Col>)
-                    }
-                </Row>
-        </div>
+                { info.current_holdings !== null && <h1>Portfolio</h1> }
+                { info.current_holdings !== null && portfolio.map(ticker => <Col xs={12} sm={6} md={4} xl={3} key={ticker.symbol}><Ticker {...ticker}/></Col>) }
+            </Row>
+            </div>
         </>
     );
 }
