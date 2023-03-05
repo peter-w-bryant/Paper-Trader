@@ -1,17 +1,34 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect  } from 'react'
 import ReactHighcharts from 'react-highcharts/ReactHighstock.src'
 import moment from 'moment'
 
-export default () => {
+function Graph({name}){
     const options = { style: 'currency', currency: 'USD' };
     const numberFormat = new Intl.NumberFormat('en-US', options);
-    const date = '02/01/2023';
-    const priceData = fetch(`/historical-stock-info/AAPL/?start_date=${date}`, {    
+    const date = '02/01/2015';
+    const [priceData, setPriceData] = useState([]);
+        
+    const getData = (ticker) => fetch(`/historical-stock-info/${ticker}?start_date=${date}`, {    
         method: 'GET',    
-    }).then(res => {
-        return res.json();
-    }).catch(err => console.log('err: ' + err));
+    }).then(res => res.json()).then(json => {
+        setPriceData(json);
+        console.log("hi");
 
+
+  const temp = [];
+    for (const [key, value] of Object.entries(json)) {
+        temp.push([parseInt(key), value.open]);
+    }
+
+    setPriceData(temp);
+
+
+
+    }).catch(err => console.log(err));
+
+    const [tickerForData, setTickerForData] = useState(name);
+
+    useEffect(() => {getData(tickerForData)}, []);
 
     const configPrice = {
 
@@ -50,7 +67,7 @@ export default () => {
             selected: 1
         },
         title: {
-            text: `Apple stock price`
+            text: `${tickerForData} stock price`
         },
         chart: {
             height: 600,
@@ -92,7 +109,7 @@ export default () => {
         },
         series: [{
             name: 'Price',
-            type: 'candle',
+            type: 'spline',
 
             data: priceData,
             tooltip: {
@@ -104,8 +121,10 @@ export default () => {
     };
     return (
         <div>
-            {/* <ReactHighcharts config={configPrice}></ReactHighcharts> */}
-            <button onClick={() => console.log(priceData)}>click</button>
+            <ReactHighcharts config={configPrice}></ReactHighcharts>
+            {/* <button onClick={() => console.log(priceData)}>click</button> */}
         </div>
     )
 }
+
+export default Graph

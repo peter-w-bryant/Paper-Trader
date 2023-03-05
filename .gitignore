@@ -1,4 +1,9 @@
 /node_modules
 frontend/src/components/apple.json
 frontend/src/components/temp.ipynb
-/backend/env
+backend/env/
+backend/api/__pycache__/
+backend/api/routes/__pycache__/
+backend/__pycache__/
+# .gitignore
+frontend/package-lock.json
