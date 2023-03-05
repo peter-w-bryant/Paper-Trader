@@ -23,7 +23,13 @@ function Ticker(props) {
             }),
             credentials: 'include'
         }).then(res => {
-            console.log(res);
+            if (res.status === 200) {
+                alert('successfully purchased')
+            } else if (res.status === 400) {
+                alert("insufficient funds");
+            } else {
+                throw new Error();
+            }
         }).catch(err => console.log('register:' + err));
     }
 
@@ -40,7 +46,13 @@ function Ticker(props) {
             }),
             credentials: 'include'
         }).then(res => {
-            console.log(res);
+            if (res.status === 200) {
+                alert('successfully sold')
+            } else if (res.status === 400) {
+                alert("insufficient shares");
+            } else {
+                throw new Error();
+            }
         }).catch(err => console.log('register:' + err));
     }
 
