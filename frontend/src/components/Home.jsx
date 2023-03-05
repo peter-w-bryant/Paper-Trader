@@ -5,6 +5,8 @@ import Autosuggest from './Autosuggest';
 import searchContext from '../contexts/searchContext';
 import { useContext } from 'react';
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faScroll } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -18,12 +20,12 @@ function Home() {
 
     return (
         <>
-            <h1>Paper Trade Home Page</h1>
-            <Autosuggest parentCallback = {handleSearchResult}/>
-            <Graph name = {searchTicker}/>
-            {/* <All /> */}
-            {/* <   Donut /> */}
-            {/*<All />*/}
+            <div style= {{ textAlign: 'center', marginTop: '50px' }}>
+                <h1>Paper Trader <FontAwesomeIcon icon={faScroll} /></h1>
+                <h4><i>Test Before You Invest!</i></h4>
+            </div>
+            <Autosuggest parentCallback={handleSearchResult} />
+            <Graph name={searchTicker} />
         </>
     );
 }
