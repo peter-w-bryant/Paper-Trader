@@ -6,7 +6,7 @@ function Home() {
         <>
             <h1>Paper Trade Home Page</h1>
             <Autosuggest/>
-            <All />
+            {/*<All />*/}
         </>
     );
 }
