@@ -68,6 +68,9 @@ class AutoSuggest extends React.Component {
     this.setState({
       suggestions: getSuggestions(value)
     });
+    if (this.state.suggestions.length >= 1) {
+      this.props.parentCallback(this.state.suggestions[0].symbol);
+    }
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
@@ -79,8 +82,8 @@ class AutoSuggest extends React.Component {
 
   // When user selected a suggestion with keyboard or mouse.
   onSuggestionSelected = (event, suggestion) => {
-    console.log(suggestion.suggestionValue);
-    console.log(`Selected ${suggestion.suggestion.symbol}`);
+    // Display the corresponding graph
+    this.props.parentCallback(suggestion.suggestionValue);
   };
 
   render() {
