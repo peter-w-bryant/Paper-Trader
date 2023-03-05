@@ -25,7 +25,7 @@ def execute_order():
     balance = current_user.balance # get current user's balance
 
     if investment > balance: 
-        return {400: 'Insufficient funds'} # return error message
+        return 'Insufficient funds', 400 # return error message
         
     ticker_current_price = get_live_price(ticker) # get current price of ticker
     share_quantity = investment / ticker_current_price # Calculate number of shares 
@@ -49,14 +49,14 @@ def execute_order():
     # Commit changes to db
     db.session.commit()
 
-    return {200: 'Order executed successfully!'}
+    return 'Order executed successfully!', 200
 
 @users.route('/user-info/<UID>', methods=['GET'])
 @login_required
 def get_user_info(UID):
     user = User.query.filter_by(UID=UID).first()
     if not user:
-        return {401: 'Username not found!'}
+        return 'Username not found!', 404
 
     user_dict =  {
         'UID': user.UID,
@@ -110,5 +110,5 @@ def get_user_info(UID):
             else:
                 user_dict['past_holdings'].append(order_dict)
 
-    return user_dict
+    return user_dict, 200
         
