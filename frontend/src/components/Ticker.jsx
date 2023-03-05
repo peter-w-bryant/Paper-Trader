@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Button, Container, Card, Row, Form, Col } from 'react-bootstrap';
+
+import LoginContext from "../contexts/loginContext";
 
 import './Ticker.css';
 
 function Ticker(props) {
     const [amount, setAmount] = useState(0);
+
+    const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
     const handleAmount = (event) => {
         setAmount(parseFloat(event.target.value));
@@ -79,25 +83,26 @@ function Ticker(props) {
                                 {props.total_value !== undefined && <li><Card.Text>Value Owned: ${props.total_value}</Card.Text></li>}
                             </ul>
 
-                            <Card.Footer>
-                                <Row>
-                                    <Col xs={12} md={5}>
-                                        <Form>
-                                            <Form.Group className='form-group-custom'>
-                                                <Form.Label>Amount</Form.Label>
-                                                <Form.Control placeholder="$" onChange={handleAmount} />
-                                            </Form.Group>
-                                        </Form>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col xs={12} md={7} className='d-flex align-items-center justify-content-between'>
-                                        <Button onClick={buy}>Buy</Button>&nbsp;&nbsp;
-                                        <Button variant='secondary' onClick={sell}>Sell</Button>
-                                    </Col>
-                                </Row>
-
-                            </Card.Footer>
+                            { loggedIn !== '' && (
+                                <Card.Footer>
+                                                <Row>
+                                                    <Col xs={12} md={5}>
+                                                        <Form>
+                                                            <Form.Group className='form-group-custom'>
+                                                                <Form.Label>Amount</Form.Label>
+                                                                <Form.Control placeholder="$" onChange={handleAmount} />
+                                                            </Form.Group>
+                                                        </Form>
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col xs={12} md={7} className='d-flex align-items-center justify-content-between'>
+                                                        <Button onClick={buy}>Buy</Button>&nbsp;&nbsp;
+                                                        <Button variant='secondary' onClick={sell}>Sell</Button>
+                                                    </Col>
+                                                </Row>
+                                </Card.Footer>
+                            )}
                         
                         </Card.Body>
                     </Card>
