@@ -57,7 +57,7 @@ function Ticker(props) {
                             { props.last_sale !== '' && <Card.Text>Last sale: {props.last_sale}</Card.Text> }
                             <Card.Footer>
                                 <Row>
-                                    <Col xs={6}>
+                                    <Col xs={5}>
                                         <Form>
                                             <Form.Group className='form-group-custom'>
                                                 <Form.Label>Amount</Form.Label>
@@ -65,9 +65,11 @@ function Ticker(props) {
                                             </Form.Group>
                                         </Form>
                                     </Col>
-                                    <Col xs={6}>
-                                        <Button onClick={buy}>Buy</Button>
-                                        <Button variant='secondary' onClick={sell}>Sell</Button>
+                                    <Col xs={7} style={{display:'block',margin:'auto'}}>
+                                        <Row xs={2}>
+                                            <Button onClick={buy}>Buy</Button>
+                                            <Button variant='secondary' onClick={sell}>Sell</Button>
+                                        </Row>
                                     </Col>
                                 </Row>
                             </Card.Footer>
