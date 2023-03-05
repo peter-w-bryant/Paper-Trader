@@ -13,7 +13,7 @@ import ReactHighcharts from 'react-highcharts';
 import { createDonutChart } from '@brightlayer-ui/highcharts';
 
 function User(props){
-    const [info, setInfo] = useState({});
+    const [info, setInfo] = useState({balance:0});
     const [portfolio, setPortfolio] = useState([]);
     const [tickers, setTickers] = useState([]);
 
@@ -89,8 +89,8 @@ const graphStyles = {
             <ReactHighcharts config={createDonutChart(donutConfig)} {...graphStyles} />
 
             <Row>
-                { info.current_holdings !== null && <h1>Portfolio</h1> }
-                { info.current_holdings !== null && portfolio.map(ticker => <Col xs={12} sm={6} md={4} xl={3} key={ticker.symbol}><Ticker {...ticker}/></Col>) }
+                { info.current_holdings !== null && info.current_holdings !== undefined && <h1>Portfolio</h1> }
+                { info.current_holdings !== null && info.current_holdings !== undefined && portfolio.map(ticker => <Col xs={12} sm={6} md={4} xl={3} key={ticker.symbol}><Ticker {...ticker}/></Col>) }
             </Row>
             </div>
         </>
