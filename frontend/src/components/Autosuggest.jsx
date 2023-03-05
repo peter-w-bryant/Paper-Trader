@@ -73,12 +73,17 @@ class AutoSuggest extends React.Component {
     });
   };
 
+  // When user selected a suggestion with keyboard or mouse.
+  onSuggestionSelected = (event, suggestion, suggestionValue) => {
+    console.log(`Selected ${suggestionValue}`);
+  };
+
   render() {
     const { value, suggestions } = this.state;
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
-      placeholder: 'Search stocks or users...',
+      placeholder: 'Search stocks...',
       value,
       onChange: this.onChange
     };
