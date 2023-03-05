@@ -8,10 +8,9 @@ function Home() {
         <>
             <h1>Paper Trade Home Page</h1>
             <Graph name='AAPL'/>
-            <All />
             {/* <   Donut /> */}
             <Autosuggest/>
-            {/*<All />*/}
+            <All />
         </>
     );
 }
