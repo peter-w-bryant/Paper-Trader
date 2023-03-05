@@ -23,6 +23,12 @@ function User(props){
 
     const [donutInfo, setDonutInfo] = useState([]);
 
+    const [sig, setSig] = useState(false);
+
+    const signal = () => {
+        setSig(oldSig => !oldSig);
+    }
+
     useEffect(() => {
         fetch('/all-tickers').then(res => res.json()).then(json => {
             setTickers(json);
@@ -35,7 +41,7 @@ function User(props){
             console.log(json);
 
         }).catch(err => console.log(err))     
-    }, [loggedIn]);
+    }, [loggedIn, sig]);
 
     useEffect(() => {
         if(info.current_holdings === undefined || tickers.length === 0){
@@ -61,7 +67,7 @@ function User(props){
         setDonutInfo(temp);
         console.log(temp);
         setPortfolio(portfolioList);
-    }, [info,tickers]);
+    }, [info,tickers,sig]);
 
     
 
@@ -86,11 +92,11 @@ const graphStyles = {
         <>  
             <h1>Balance: {info.balance}</h1>
             <div style={{ height: '300px' }}>
-            <ReactHighcharts config={createDonutChart(donutConfig)} {...graphStyles} />
+            { info.current_holdings !== null && info.current_holdings !== undefined && <ReactHighcharts config={createDonutChart(donutConfig)} {...graphStyles} /> }
 
             <Row>
                 { info.current_holdings !== null && info.current_holdings !== undefined && <h1>Portfolio</h1> }
-                { info.current_holdings !== null && info.current_holdings !== undefined && portfolio.map(ticker => <Col xs={12} sm={6} md={4} xl={3} key={ticker.symbol}><Ticker {...ticker}/></Col>) }
+                { info.current_holdings !== null && info.current_holdings !== undefined && portfolio.map(ticker => <Col xs={12} sm={6} md={4} xl={3} key={ticker.symbol}><Ticker {...ticker} signal={signal}/></Col>) }
             </Row>
             </div>
         </>
