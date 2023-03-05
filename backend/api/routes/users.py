@@ -51,12 +51,14 @@ def execute_order():
 
     return 'Order executed successfully!', 200
 
-@users.route('/user-info/<UID>', methods=['GET'])
+@users.route('/user-info/<username>', methods=['GET'])
 @login_required
-def get_user_info(UID):
-    user = User.query.filter_by(UID=UID).first()
+def get_user_info(username):
+    user = User.query.filter_by(username=username).first()
     if not user:
         return 'Username not found!', 404
+    
+    UID = user.UID
 
     user_dict =  {
         'UID': user.UID,
