@@ -55,6 +55,7 @@ function Ticker(props) {
                             { props.net_change !== '' && <Card.Text>Net change: {props.net_change}</Card.Text> }
                             { props.percent_change !== '' && <Card.Text>Percent change: {props.percent_change}</Card.Text> }
                             { props.last_sale !== '' && <Card.Text>Last sale: {props.last_sale}</Card.Text> }
+                            { props.total_value !== undefined && <Card.Text>Value in Portfolio: {props.total_value}</Card.Text> }
                             <Card.Footer>
                                 <Row>
                                     <Col xs={6}>
