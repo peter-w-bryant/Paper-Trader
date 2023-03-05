@@ -1,13 +1,23 @@
 import React from 'react';
+// @ts-ignore
 import ReactHighcharts from 'react-highcharts';
 
+// @ts-ignore
 import { createDonutChart } from '@brightlayer-ui/highcharts';
 import * as BLUIColors from '@brightlayer-ui/colors';
 
 const mainConfig = {
-    colors: [BLUIColors.blue[900], BLUIColors.blue[500], BLUIColors.blue[200]],
-    // data: [10,20,50,5,15],
+
+        series: [{
+            name: 'Browsers',
+            data:[
+                {name: 'Chrome', y: 61.41},
+                { name: 'Internet Explorer', y: 11.84 }, 
+                { name: 'Firefox', y: 10.85 }
+            ]
+        }],
 };
+
 
 const graphStyles = {
     domProps: {
@@ -17,10 +27,13 @@ const graphStyles = {
     },
 };
 
-
-export default () => {
-    // <ReactHighcharts config={createDonutChart(mainConfig)} {...graphStyles} />
-    <div style={{ height: '300px' }}>
+export default () => (
+   
+        <div style={{ height: '300px' }}>
             <ReactHighcharts config={createDonutChart(mainConfig)} {...graphStyles} />
         </div>
-}
+        
+);
+
+
+
