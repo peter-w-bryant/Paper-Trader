@@ -1,0 +1,18 @@
+.btn-custom {
+    background-color: #f8b739;
+    color: #ffffff;
+    border: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width : 100%;
+  }
+  
+  .btn-custom:hover {
+    background-color: #e89c1d;
+    color: #ffffff;
+  }
