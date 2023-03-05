@@ -9,7 +9,7 @@ function Layout() {
 
     const handleLogin = () => {
         loggedIn ? setLoggedIn(false) : setLoggedIn(true);
-        !loggedIn && (logout())
+        !loggedIn && (logout());
     }
 
     const logout = () => {
