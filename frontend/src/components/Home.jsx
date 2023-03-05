@@ -21,9 +21,8 @@ function Home() {
             <h1>Paper Trade Home Page</h1>
             <Autosuggest parentCallback = {handleSearchResult}/>
             <Graph name = {searchTicker}/>
-            {/* <All /> */}
+            <All />
             {/* <   Donut /> */}
-            {/*<All />*/}
         </>
     );
 }
