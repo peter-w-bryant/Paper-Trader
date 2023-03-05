@@ -12,8 +12,8 @@ function Registration() {
   const [email, setEmail] = useState('');
 
   const [wantToRegister, setWantToRegister] = useState(false);
-  const [buttonText, setButtonText] = useState("Register");
-  const [switchText, setSwitchText] = useState("Already have an account? Login here.");
+  const [buttonText, setButtonText] = useState("Login");
+  const [switchText, setSwitchText] = useState("Don't have an account? Register here.");
 
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
@@ -34,16 +34,16 @@ function Registration() {
   const handleSwitch = () => {
     wantToRegister ? setWantToRegister(false) : setWantToRegister(true);
     if(wantToRegister){
-      setButtonText("Register");
-      setSwitchText("Already have an account? Login here.");
-    } else {
       setButtonText("Login");
       setSwitchText("Don't have an account? Register here.")
+    } else {
+      setButtonText("Register");
+      setSwitchText("Already have an account? Login here.");
     }
   }
 
   const submit = () => {
-    !wantToRegister ? handleRegister() : handleLogin();
+    wantToRegister ? handleRegister() : handleLogin();
   }
 
   const handleRegister = () => {
@@ -59,14 +59,38 @@ function Registration() {
       }),
       credentials: 'include'
     }).then(res => {
-      
-    })
-
-    navigate('/')
+      if (res.status === 201) {
+        setLoggedIn(true);
+      } else if (res.status === 409) {
+        alert("username already taken");
+      } else {
+        throw new Error();
+      }
+    }).catch(err => console.log('register:' + err));
+    navigate('/');
   }
 
   const handleLogin = () => {
-    
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password
+      }),
+      credentials: 'include'
+    }).then(res => {
+      if (res.status === 200) {
+        setLoggedIn(true);
+      } else if (res.status === 401) {
+        alert("username or password wrong");
+      } else {
+        throw new Error();
+      }
+    }).catch(err => console.log('login: ' + err));
+    navigate('/');
   }
 
   return (
@@ -79,10 +103,14 @@ function Registration() {
           <Form.Label>Password</Form.Label>
           <Form.Control placeholder="Enter Password" onChange={handlePassword} />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Email</Form.Label>
-          <Form.Control placeholder="Enter Email" onChange={handleEmail} />
-        </Form.Group>
+        {
+          wantToRegister && (
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control placeholder="Enter Email" onChange={handleEmail} />
+            </Form.Group>
+          )
+        }
         <Button className='submit' variant="primary" type="submit" onClick={submit}>
           {buttonText}
         </Button>
