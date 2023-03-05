@@ -60,15 +60,13 @@ function Registration() {
       credentials: 'include'
     }).then(res => {
       if (res.status === 201) {
-        setLoggedIn(true);
+        handleLogin();
       } else if (res.status === 409) {
         alert("username already taken");
       } else {
         throw new Error();
       }
     }).catch(err => console.log('register:' + err));
-
-    handleLogin();
   }
 
   const handleLogin = () => {
