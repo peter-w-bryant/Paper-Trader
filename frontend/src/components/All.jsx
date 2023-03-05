@@ -47,7 +47,7 @@ function All() {
         <>
             <Container fluid>
 
-                <Row class="d-flex justify-content-center">
+                <Row className="d-flex justify-content-center">
                     <Col xs={12} sm={6} md={4} xl={3} key={currentTicker.symbol}><Ticker {...currentTicker} /></Col>
                 </Row>
 

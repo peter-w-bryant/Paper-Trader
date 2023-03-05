@@ -24,6 +24,7 @@ function Ticker(props) {
             credentials: 'include'
         }).then(res => {
             if (res.status === 200) {
+                handleSignal();
                 alert('successfully purchased')
             } else if (res.status === 400) {
                 alert("insufficient funds");
@@ -47,6 +48,7 @@ function Ticker(props) {
             credentials: 'include'
         }).then(res => {
             if (res.status === 200) {
+                handleSignal();
                 alert('successfully sold')
             } else if (res.status === 400) {
                 alert("insufficient shares");
@@ -54,6 +56,10 @@ function Ticker(props) {
                 throw new Error();
             }
         }).catch(err => console.log('register:' + err));
+    }
+
+    const handleSignal = () => {
+        props !== undefined && Object.keys(props).includes('signal') && props.signal();
     }
 
     return (
