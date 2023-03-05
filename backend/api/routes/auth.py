@@ -17,30 +17,43 @@ from app import bcrypt, login_manager # import bcrypt and login_manager from app
 from db import db
 from models import User
 
-@auth.route('/register', methods=['GET', 'POST'])
+@auth.route('/register', methods=['GET', 'POST']) 
 def register():
     if request.method == 'POST': 
         data = request.get_json()
         try:
+            # check if username already exists
+            user = User.query.filter_by(username=data['username']).first()
+
+            if user != None:
+                return 'Username already exists!', 409 # return error message
+
             hashed_password = bcrypt.generate_password_hash(data['password']) # hash password
             
             new_user = User(username=data['username'], password=hashed_password, # create new user
                             email=data['email'], balance=1e4)
+            
             db.session.add(new_user) # add new user to database
             db.session.commit()      # commit changes to database
-            return {201: 'User created successfully!'} # return success message
+            return 'User created successfully!', 201 # return success message
+        
         except IntegrityError:
-            return {409: 'Username already exists!'}   # return error message
+            return 'Username already exists!', 409   # return error message
+        
+        except Exception as e:
+            print(e)
+            return str(e), 500
        
 @auth.route('/login', methods=['GET', 'POST'])
-def login():
+def login():   
     if request.method == 'POST':
         data = request.get_json()
         user = User.query.filter_by(username=data['username']).first()
-        if user:
+        if user != None:
             if bcrypt.check_password_hash(user.password, data['password']):
                 login_user(user)
                 return {200: 'Logged in successfully!'}
+            
             return {401: 'Incorrect password!'}
         else:
             return {401: 'Username not found!'}
