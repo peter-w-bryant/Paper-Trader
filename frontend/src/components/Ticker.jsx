@@ -58,7 +58,7 @@ function Ticker(props) {
                             { props.total_value !== undefined && <Card.Text>Value in Portfolio: {props.total_value}</Card.Text> }
                             <Card.Footer>
                                 <Row>
-                                    <Col xs={6}>
+                                    <Col xs={5}>
                                         <Form>
                                             <Form.Group className='form-group-custom'>
                                                 <Form.Label>Amount</Form.Label>
@@ -66,9 +66,11 @@ function Ticker(props) {
                                             </Form.Group>
                                         </Form>
                                     </Col>
-                                    <Col xs={6}>
-                                        <Button onClick={buy}>Buy</Button>
-                                        <Button variant='secondary' onClick={sell}>Sell</Button>
+                                    <Col xs={7} style={{display:'block',margin:'auto'}}>
+                                        <Row xs={2}>
+                                            <Button onClick={buy}>Buy</Button>
+                                            <Button variant='secondary' onClick={sell}>Sell</Button>
+                                        </Row>
                                     </Col>
                                 </Row>
                             </Card.Footer>

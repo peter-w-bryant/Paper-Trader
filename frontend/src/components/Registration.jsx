@@ -110,7 +110,7 @@ function Registration() {
             </Form.Group>
             <Form.Group className='form-group-custom'>
               <Form.Label>Password</Form.Label>
-              <Form.Control placeholder="Enter Password" onChange={handlePassword} />
+              <Form.Control type="password" placeholder="Enter Password" onChange={handlePassword} />
             </Form.Group>
             {
               wantToRegister && (
