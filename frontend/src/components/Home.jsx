@@ -12,7 +12,6 @@ function Home() {
 
     const [searchTicker, setSearchTicker] = useContext(searchContext);
     const handleSearchResult = (result) => {
-        console.log(result);
         setSearchTicker(result);
     }
 
