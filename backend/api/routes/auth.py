@@ -52,14 +52,14 @@ def login():
         if user != None:
             if bcrypt.check_password_hash(user.password, data['password']):
                 login_user(user)
-                return {200: 'Logged in successfully!'}
+                return 'Logged in successfully!', 200
             
-            return {401: 'Incorrect password!'}
+            return 'Incorrect password!', 401
         else:
-            return {401: 'Username not found!'}
+            return 'Username not found!', 401
         
 @auth.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
-    return {200: 'Logged out successfully!'}
+    return 'Logged out successfully!', 200
