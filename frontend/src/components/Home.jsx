@@ -23,7 +23,7 @@ function Home() {
             <Graph name = {searchTicker}/>
             {/* <All /> */}
             {/* <   Donut /> */}
-            {/*<All />*/}
+            <All />
         </>
     );
 }
