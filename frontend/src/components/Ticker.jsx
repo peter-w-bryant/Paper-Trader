@@ -5,7 +5,7 @@ function Ticker(props) {
         <>
             <Card>
                 <Card.Body>
-                    <Card.Title>{props.name}</Card.Title>{console.log(props)}
+                    <Card.Title>{props.name}</Card.Title>
                     { props.industry !== '' && <Card.Text>Industry: {props.industry}</Card.Text> }
                     { props.country !== '' && <Card.Text>Country: {props.country}</Card.Text> }
                     { props.net_change !== '' && <Card.Text>Net change: {props.net_change}</Card.Text> }
