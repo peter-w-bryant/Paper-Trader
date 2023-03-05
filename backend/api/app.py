@@ -2,12 +2,12 @@ from flask import Flask, Blueprint, render_template, request, redirect, url_for,
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user # for handling user sessions
 from flask_bcrypt import Bcrypt # for hashing passwords
 from flask_sqlalchemy import SQLAlchemy
-
 import os
+
 # Initialize app
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI') 
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') # This uses d
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') 
 
 from db import db # Import db object from db.py
 db.init_app(app)  # Initialize db object with app config
