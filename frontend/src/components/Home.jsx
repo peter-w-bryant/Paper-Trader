@@ -22,7 +22,6 @@ function Home() {
             <Autosuggest parentCallback = {handleSearchResult}/>
             <Graph name = {searchTicker}/>
             <All />
-            {/* <   Donut /> */}
         </>
     );
 }

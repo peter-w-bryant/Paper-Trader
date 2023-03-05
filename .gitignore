@@ -12,3 +12,4 @@ frontend/package-lock.json
 /backend/env
 backend/api/routes/__pycache__
 backend/api/__pycache__
+backend/api/instance/database.db
