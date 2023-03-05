@@ -6,7 +6,7 @@ import os
 
 # Initialize app
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI') 
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') 
 
 from db import db # Import db object from db.py
