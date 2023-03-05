@@ -10,8 +10,10 @@ const getSuggestions = value => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
 
+  // Input matches prefix of either symbol or name
   return inputLength === 0 ? [] : stocks.filter(stock =>
-    stock.symbol.toLowerCase().slice(0, inputLength) === inputValue
+    stock.symbol.toLowerCase().slice(0, inputLength) === inputValue ||
+    stock.name.toLowerCase().slice(0, inputLength) === inputValue
   );
 };
 
@@ -23,7 +25,9 @@ const getSuggestionValue = suggestion => suggestion.symbol;
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
   <div>
-    {suggestion.symbol}
+  <p>
+    {suggestion.name} ({suggestion.symbol})
+  </p>
   </div>
 );
 
@@ -74,8 +78,9 @@ class AutoSuggest extends React.Component {
   };
 
   // When user selected a suggestion with keyboard or mouse.
-  onSuggestionSelected = (event, suggestion, suggestionValue) => {
-    console.log(`Selected ${suggestionValue}`);
+  onSuggestionSelected = (event, suggestion) => {
+    console.log(suggestion.suggestionValue);
+    console.log(`Selected ${suggestion.suggestion.symbol}`);
   };
 
   render() {
@@ -93,6 +98,7 @@ class AutoSuggest extends React.Component {
       <Autosuggest
         theme={theme}
         suggestions={suggestions}
+        onSuggestionSelected={this.onSuggestionSelected}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         getSuggestionValue={getSuggestionValue}
