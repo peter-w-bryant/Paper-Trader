@@ -26,7 +26,18 @@ function Graph({name}){
 
     const [tickerForData, setTickerForData] = useState(name);
 
+    // detect enter key
+    
+    function handleSearch(){
+        
+    }
+
+
     useEffect(() => {getData(tickerForData)}, []);
+
+    useEffect(() => {setTickerForData(name);
+        getData(name);
+        console.log("name");}, [name]);
 
     const configPrice = {
 
@@ -120,7 +131,6 @@ function Graph({name}){
     return (
         <div>
             <ReactHighcharts config={configPrice}></ReactHighcharts>
-            {/* <button onClick={() => console.log(priceData)}>click</button> */}
         </div>
     )
 }
