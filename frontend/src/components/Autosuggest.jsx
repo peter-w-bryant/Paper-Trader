@@ -68,6 +68,9 @@ class AutoSuggest extends React.Component {
     this.setState({
       suggestions: getSuggestions(value)
     });
+    if (this.state.suggestions.length >= 1) {
+      this.props.parentCallback(this.state.suggestions[0].symbol);
+    }
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
