@@ -19,59 +19,34 @@ from models import User
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegisterForm() # TODO remove
-    if request.method == 'POST':
+    if request.method == 'POST': 
+        data = request.get_json()
         try:
-            hashed_password = bcrypt.generate_password_hash(form.password.data)    # hash password
-
-            # create new user
-            new_user = User(username=form.username.data, password=hashed_password,
-                            email=form.email.data, balance=1e4) 
+            hashed_password = bcrypt.generate_password_hash(data['password']) # hash password
             
+            new_user = User(username=data['username'], password=hashed_password, # create new user
+                            email=data['email'], balance=1e4)
             db.session.add(new_user) # add new user to database
             db.session.commit()      # commit changes to database
-            # users = User.query.all() # get all users
             return {201: 'User created successfully!'} # return success message
         except IntegrityError:
             return {409: 'Username already exists!'}   # return error message
-
-    return render_template('register.html', form=form)
-
-class RegisterForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
-    password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
-    email = StringField(validators=[InputRequired(), Length(min=4, max=50)], render_kw={"placeholder": "Email"})
-    submit = SubmitField('Register')
-
-    def validate_username(self, username):
-        existing_user_username = User.query.filter_by(
-            username=username.data).first()
-        if existing_user_username:
-            raise ValidationError(
-                'That username already exists. Please choose a different one.')
-        
-class LoginForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
-    password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
-    submit = SubmitField('Login')
-
+       
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
     if request.method == 'POST':
-        user = User.query.filter_by(username=form.username.data).first()
+        data = request.get_json()
+        user = User.query.filter_by(username=data['username']).first()
         if user:
-            if bcrypt.check_password_hash(user.password, form.password.data):
+            if bcrypt.check_password_hash(user.password, data['password']):
                 login_user(user)
                 return {200: 'Logged in successfully!'}
             return {401: 'Incorrect password!'}
         else:
             return {401: 'Username not found!'}
-    return render_template('login.html', form=form)
-
+        
 @auth.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
     return {200: 'Logged out successfully!'}
-
