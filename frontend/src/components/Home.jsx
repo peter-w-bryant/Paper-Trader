@@ -28,6 +28,7 @@ function Home() {
     return (
         <>
 
+
             <div style= {{ textAlign: 'center', marginTop: '50px' }}>
                 <h1>Paper Trader <FontAwesomeIcon icon={faScroll} /></h1>
                 <h4><i>Test Before You Invest!</i></h4>
