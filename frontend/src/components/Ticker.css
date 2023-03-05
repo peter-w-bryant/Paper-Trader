@@ -10,6 +10,10 @@
 .card {
     height:500px;
     width: 350px;
+    min-width: 350px;
+    min-height: 500px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .custom-unordered-list {
@@ -17,8 +21,7 @@
 }
 
 .form-group-custom .form-control {
-    width: 150px;
-    /* make the form all in the center */
+    width: 250px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -28,12 +31,13 @@
 .form.label {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: left;
+    
 }
 
 /* CSS for form label */
 .form-label {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: left;
 }

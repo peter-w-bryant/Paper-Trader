@@ -79,6 +79,7 @@ function Ticker(props) {
                                 </Row>
 
                             </Card.Footer>
+                        
                         </Card.Body>
                     </Card>
                 </Row>
