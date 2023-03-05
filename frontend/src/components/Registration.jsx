@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Card, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 import LoginContext from "../contexts/loginContext";
@@ -33,7 +33,7 @@ function Registration() {
 
   const handleSwitch = () => {
     wantToRegister ? setWantToRegister(false) : setWantToRegister(true);
-    if(wantToRegister){
+    if (wantToRegister) {
       setButtonText("Login");
       setSwitchText("Don't have an account? Register here.")
     } else {
@@ -60,15 +60,13 @@ function Registration() {
       credentials: 'include'
     }).then(res => {
       if (res.status === 201) {
-        setLoggedIn(true);
+        handleLogin();
       } else if (res.status === 409) {
         alert("username already taken");
       } else {
         throw new Error();
       }
     }).catch(err => console.log('register:' + err));
-
-    handleLogin();
   }
 
   const handleLogin = () => {
@@ -84,40 +82,52 @@ function Registration() {
       credentials: 'include'
     }).then(res => {
       if (res.status === 200) {
-        setLoggedIn(true);
+        setLoggedIn(username);
       } else if (res.status === 401) {
         alert("username or password wrong");
       } else {
         throw new Error();
       }
     }).catch(err => console.log('login: ' + err));
-    
+
     navigate('/');
   }
 
   return (
-      <Form>
-        <Form.Group>
-          <Form.Label>Username</Form.Label>
-          <Form.Control placeholder="Enter Username" onChange={handleUsername} />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control placeholder="Enter Password" onChange={handlePassword} />
-        </Form.Group>
-        {
-          wantToRegister && (
-            <Form.Group>
-              <Form.Label>Email</Form.Label>
-              <Form.Control placeholder="Enter Email" onChange={handleEmail} />
+    <div className='div-registration'>
+      
+      <Card className='card-custom'>
+        <Card.Header className='card-header-custom'>
+          <h1>Welcome to Paper Trader &#x1F4B0;</h1>
+          <p><b>Login</b> or <b>register an account</b> below!</p>
+        </Card.Header>
+
+        <Card.Body>
+          <Form>
+            <Form.Group className='form-group-custom'>
+              <Form.Label>Username</Form.Label>
+              <Form.Control placeholder="Enter Username" onChange={handleUsername} />
             </Form.Group>
-          )
-        }
-        <Button className='submit' variant="primary" type="submit" onClick={submit}>
-          {buttonText}
-        </Button>
-      <Button className='submit' onClick={handleSwitch}>{switchText}</Button>
-      </Form>
+            <Form.Group className='form-group-custom'>
+              <Form.Label>Password</Form.Label>
+              <Form.Control placeholder="Enter Password" onChange={handlePassword} />
+            </Form.Group>
+            {
+              wantToRegister && (
+                <Form.Group className='form-group-custom'>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control placeholder="Enter Email" onChange={handleEmail} />
+                </Form.Group>
+              )
+            }
+            <Button className='submit' variant="primary" type="submit" onClick={submit}>
+              {buttonText}
+            </Button>
+            <Button className='submit' onClick={handleSwitch}>{switchText}</Button>
+          </Form>
+        </Card.Body>
+      </Card>
+    </div>
   );
 }
 
