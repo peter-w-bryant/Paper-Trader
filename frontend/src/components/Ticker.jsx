@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Button, Container, Card, Row, Form, Col } from 'react-bootstrap';
 
+import './Ticker.css';
+
 function Ticker(props) {
     const [amount, setAmount] = useState(0);
 
@@ -12,34 +14,34 @@ function Ticker(props) {
         fetch('/execute-order', {
             method: 'POST',
             headers: {
-              "Content-Type": "application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              order_type: 'buy',
-              ticker: props.symbol,
-              value: amount
+                order_type: 'buy',
+                ticker: props.symbol,
+                value: amount
             }),
             credentials: 'include'
-          }).then(res => {
+        }).then(res => {
             console.log(res);
-          }).catch(err => console.log('register:' + err));
+        }).catch(err => console.log('register:' + err));
     }
 
     const sell = () => {
         fetch('/execute-order', {
             method: 'POST',
             headers: {
-              "Content-Type": "application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              order_type: 'sell',
-              ticker: props.symbol,
-              value: amount
+                order_type: 'sell',
+                ticker: props.symbol,
+                value: amount
             }),
             credentials: 'include'
-          }).then(res => {
+        }).then(res => {
             console.log(res);
-          }).catch(err => console.log('register:' + err));
+        }).catch(err => console.log('register:' + err));
     }
 
     return (
@@ -49,30 +51,33 @@ function Ticker(props) {
                     <Card>
                         <Card.Body>
                             <Card.Title>{props.name}</Card.Title>
-                            { props.industry !== '' && <Card.Text>Industry: {props.industry}</Card.Text> }
-                            { props.country !== '' && <Card.Text>Country: {props.country}</Card.Text> }      
-                            { props.volume !== '' && <Card.Text>Volume: {props.volume}</Card.Text> }
-                            { props.net_change !== '' && <Card.Text>Net change: {props.net_change}</Card.Text> }
-                            { props.percent_change !== '' && <Card.Text>Percent change: {props.percent_change}</Card.Text> }
-                            { props.last_sale !== '' && <Card.Text>Last sale: {props.last_sale}</Card.Text> }
-                            { props.total_value !== undefined && <Card.Text>Value in Portfolio: {props.total_value}</Card.Text> }
+
+                            <ul className="custom-unordered-list">
+                                {props.country !== '' && <li><Card.Text>Country: {props.country}</Card.Text></li>}
+                                {props.volume !== '' && <li><Card.Text>Volume: {props.volume}</Card.Text></li>}
+                                {props.net_change !== '' && <li><Card.Text>Net change: {props.net_change}</Card.Text></li>}
+                                {props.percent_change !== '' && <li><Card.Text>Percent change: {props.percent_change}</Card.Text></li>}
+                                {props.last_sale !== '' && <li><Card.Text>Last sale: {props.last_sale}</Card.Text></li>}
+                            </ul>
+
                             <Card.Footer>
                                 <Row>
-                                    <Col xs={5}>
+                                    <Col xs={12} md={5}>
                                         <Form>
                                             <Form.Group className='form-group-custom'>
                                                 <Form.Label>Amount</Form.Label>
-                                                <Form.Control placeholder="$100" onChange={handleAmount} />
+                                                <Form.Control placeholder="$" onChange={handleAmount} />
                                             </Form.Group>
                                         </Form>
                                     </Col>
-                                    <Col xs={7} style={{display:'block',margin:'auto'}}>
-                                        <Row xs={2}>
-                                            <Button onClick={buy}>Buy</Button>
-                                            <Button variant='secondary' onClick={sell}>Sell</Button>
-                                        </Row>
+                                </Row>
+                                <Row>
+                                    <Col xs={12} md={7} className='d-flex align-items-center justify-content-between'>
+                                        <Button onClick={buy}>Buy</Button>&nbsp;&nbsp;
+                                        <Button variant='secondary' onClick={sell}>Sell</Button>
                                     </Col>
                                 </Row>
+
                             </Card.Footer>
                         </Card.Body>
                     </Card>
