@@ -2,37 +2,28 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import theme from "../searchbar.module.css";
 
-// Imagine you have a list of languages that you'd like to autosuggest.
-const languages = [
-  {
-    name: 'C',
-    year: 1972
-  },
-  {
-    name: 'Elm',
-    year: 2012
-  },
-];
+// All the results to search
+let stocks = [];
 
 // Teach Autosuggest how to calculate suggestions for any given input value.
 const getSuggestions = value => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
 
-  return inputLength === 0 ? [] : languages.filter(lang =>
-    lang.name.toLowerCase().slice(0, inputLength) === inputValue
+  return inputLength === 0 ? [] : stocks.filter(stock =>
+    stock.symbol.toLowerCase().slice(0, inputLength) === inputValue
   );
 };
 
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
+const getSuggestionValue = suggestion => suggestion.symbol;
 
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
   <div>
-    {suggestion.name}
+    {suggestion.symbol}
   </div>
 );
 
@@ -49,6 +40,16 @@ class AutoSuggest extends React.Component {
       value: '',
       suggestions: []
     };
+
+    const fetchStocks = () => {
+      fetch('/all-tickers').then(response => {
+        return response.json();
+      }).then(responseData => {
+        stocks = responseData;
+      });
+    };
+
+    fetchStocks();
   }
 
   onChange = (event, { newValue }) => {
