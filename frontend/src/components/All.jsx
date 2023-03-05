@@ -8,7 +8,7 @@ function All() {
 
     useEffect(() => {
         fetch('/all-tickers').then(res => res.json()).then(json => {
-            setTickers(json);
+            setTickers(json.slice(0,2));
         }).catch(err => console.log(err));
     }, []);
 

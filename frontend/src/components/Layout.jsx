@@ -17,19 +17,19 @@ function Layout() {
     
     return (
         <>
-            <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
-                <Navbar bg='dark' variant='dark'>
-                    <Container>
-                        <Navbar.Brand as={Link} to='/'>Home</Navbar.Brand>
-                        { loggedIn !== '' && <Nav><Nav.Link as={Link} to='profile'>Profile</Nav.Link></Nav> }
-                        <Nav className='ms-auto'>
-                            { loggedIn === '' && <Nav.Link as={Link} to="registration">Login / Register</Nav.Link> }
-                            { loggedIn !== '' && <Nav.Link onClick={handleLogout}>Logout</Nav.Link> }
-                        </Nav>
-                    </Container>
-                </Navbar> 
-                <Outlet />
-            </LoginContext.Provider>
+                <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
+                    <Navbar bg='dark' variant='dark'>
+                        <Container>
+                            <Navbar.Brand as={Link} to='/'>Home</Navbar.Brand>
+                            { loggedIn !== '' && <Nav><Nav.Link as={Link} to='profile'>Profile</Nav.Link></Nav> }
+                            <Nav className='ms-auto'>
+                                { loggedIn === '' && <Nav.Link as={Link} to="registration">Login / Register</Nav.Link> }
+                                { loggedIn !== '' && <Nav.Link onClick={handleLogout}>Logout</Nav.Link> }
+                            </Nav>
+                        </Container>
+                    </Navbar> 
+                    <Outlet />
+                </LoginContext.Provider>
         </>
     );
 }
