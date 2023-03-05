@@ -1,60 +1,94 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+
+import LoginContext from "../contexts/loginContext";
+
 import "./Registration.css";
 
-
 function Registration() {
-  const [wantToRegister, setWantToRegister] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+
+  const [wantToRegister, setWantToRegister] = useState(false);
   const [buttonText, setButtonText] = useState("Register");
   const [switchText, setSwitchText] = useState("Already have an account? Login here.");
 
+  const [loggedIn, setLoggedIn] = useContext(LoginContext);
+
+  const navigate = useNavigate();
+
   const handleUsername = (event) => {
-    // if username is less than 3 characters, display error message
-
-
     setUsername(event.target.value);
   }
 
-  const handleNewPassword = (event) => {
+  const handlePassword = (event) => {
     setPassword(event.target.value);
+  }
+
+  const handleEmail = (event) => {
+    setEmail(event.target.value);
   }
 
   const handleSwitch = () => {
     wantToRegister ? setWantToRegister(false) : setWantToRegister(true);
-    wantToRegister ? (setButtonText("Register") && setSwitchText("Already have an account? Login here.")) : (setButtonText("Login") && setSwitchText("Don't have an account? Register here."));
-  }
-
-  const handleRegister = (event) => {
-    if (username.length < 3) {
-
-
-      alert("Username must be at least 3 characters");
+    if(wantToRegister){
+      setButtonText("Register");
+      setSwitchText("Already have an account? Login here.");
+    } else {
+      setButtonText("Login");
+      setSwitchText("Don't have an account? Register here.")
     }
-    console.log(username);
   }
+
+  const submit = () => {
+    !wantToRegister ? handleRegister() : handleLogin();
+  }
+
+  const handleRegister = () => {
+    fetch('/register', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        email: email
+      }),
+      credentials: 'include'
+    }).then(res => {
+      
+    })
+
+    navigate('/')
+  }
+
+  const handleLogin = () => {
+    
+  }
+
   return (
       <Form>
         <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control placeholder="Enter Username" onChange={handleUsername} />
         </Form.Group>
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group>
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Enter Password" onChange={handleNewPassword} />
+          <Form.Control placeholder="Enter Password" onChange={handlePassword} />
         </Form.Group>
-        <Button className='submit' variant="primary" type="submit" onClick={handleRegister}>
+        <Form.Group>
+          <Form.Label>Email</Form.Label>
+          <Form.Control placeholder="Enter Email" onChange={handleEmail} />
+        </Form.Group>
+        <Button className='submit' variant="primary" type="submit" onClick={submit}>
           {buttonText}
         </Button>
       <Button className='submit' onClick={handleSwitch}>{switchText}</Button>
       </Form>
   );
 }
-
-
-
 
 export default Registration;
