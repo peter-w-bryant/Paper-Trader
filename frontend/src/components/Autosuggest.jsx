@@ -1,5 +1,6 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
+import theme from "../searchbar.module.css";
 
 // Imagine you have a list of languages that you'd like to autosuggest.
 const languages = [
@@ -84,6 +85,7 @@ class AutoSuggest extends React.Component {
     // Finally, render it!
     return (
       <Autosuggest
+        theme={theme}
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
