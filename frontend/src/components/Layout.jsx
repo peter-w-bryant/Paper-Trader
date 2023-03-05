@@ -9,6 +9,14 @@ function Layout() {
 
     const handleLogin = () => {
         loggedIn ? setLoggedIn(false) : setLoggedIn(true);
+        !loggedIn && (logout())
+    }
+
+    const logout = () => {
+        fetch('/logout', {
+            method: 'POST',
+            credentials: 'include'
+        }).catch(err => console.log('logout: ' + err));
     }
     
     return (
