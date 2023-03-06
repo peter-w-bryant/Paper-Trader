@@ -1,8 +1,9 @@
 # Paper-Trader
- A React and Flask web-based database application that allows users to manage simulated brokerage accounts and track the performance of their trades.
+A React and Flask web-based database application that allows users to manage simulated brokerage accounts and track the performance of their trades.
 
 ## Usage
 In order to run this project locally first clone this repo and step into the project directory,
+
 ```bash
 git clone https://github.com/peter-w-bryant/Paper-Trader.git
 cd Paper-Trader
@@ -38,8 +39,33 @@ cd instance
 sqlite3 database.db
 sqlite> .tables
 ```
-you should then see ```orders  user``` indicating that both the orders and user tables were created successfully.
+you should then see ```orders  user``` indicating that both the orders and user tables were created successfully. From here your backend is fully initialized and ready to run.
 
+### Frontend Setup
+Setting up the frontend is much simpler. Just run the following commands from the ```Paper-Trader``` project directory,
+
+```bash
+cd frontend
+yarn
+```
+this will install all frontend dependencies; once this is finished your frontend is fully intialized and ready to run.
+
+### Running The App Locally
+After setting up both the frontend and backend, you need to run both servers. From the ```Paper-Trader``` project directory, run the backend Flask server with,
+
+```bash
+cd backend
+flask run
+```
+note the backend server should be running on a development server and you will see the localhost IP address with a specified port number (e.g., ```http://127.0.0.1:5000```). Note the port number if it isn't 5000, as you will need to modify ```frontend/package.json``` and update the proxy on line 49 to ```"proxy": "http://127.0.0.1:YOUR-PORT-NUMBER/"```.
+
+With your backend server running on the correct port, start a separate terminal session, go to the ```Paper-Trader``` project directory and run the frontend React server with,
+
+```bash
+cd frontend
+yarn start
+```
+this will start your frontend React development server and will open a window in your default browser. You can now use the application!
 
 ## MadHacks `23 Project Description
 ### Inspiration
