@@ -2,7 +2,7 @@
 A React and Flask web-based database application that allows users to manage simulated brokerage accounts and track the performance of their trades.
 
 # Table of Contents
-1. [Usage](##Usage)
+1. [Usage](##usage)
 2. [Demo](##Demo)
 3. [MadHacks Project Description](##MadHacks `23 Project Description)
 
@@ -71,6 +71,8 @@ cd frontend
 yarn start
 ```
 this will start your frontend React development server and will open a window in your default browser. You can now use the application!
+
+## Demo
 
 ## MadHacks `23 Project Description
 ### Inspiration
