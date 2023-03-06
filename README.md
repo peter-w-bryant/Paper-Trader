@@ -77,7 +77,7 @@ this will start your frontend React development server and will open a window in
 ### Search
 https://user-images.githubusercontent.com/72423203/223184813-8234e992-d0e9-4f1d-9a11-0e9b4595e6b0.mp4
 
-### Login/Registration
+### Login & Registration
 https://user-images.githubusercontent.com/72423203/223186091-e95f2943-edf4-4547-ad99-e795a732e60d.mp4
 
 ### Execute Orders & User Dashboard
