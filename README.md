@@ -4,7 +4,7 @@ A React and Flask web-based database application that allows users to manage sim
 # Table of Contents
 1. [Usage](#Usage)
 2. [Demo](#Demo)
-3. [MadHacks Project Description](##MadHacks `23 Project Description)
+3. [MadHacks Project Description](#MadHacks `23 Project Description)
 
 ## Usage
 In order to run this project locally first clone this repo and step into the project directory,
