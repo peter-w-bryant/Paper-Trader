@@ -19,6 +19,7 @@ env/Scripts/activate
 pip install -r requirements.txt
 ```
 Next, initialize a local SQLite DB instance by stepping into the ```/api``` directory and executing the following commands in Python interactive mode,
+
 ```bash
 cd api
 python3
@@ -30,7 +31,15 @@ now from interactive mode,
 > with app.app_context():
 >    db.create_all()
 ```
-this will create a SQLite DB instance named ```database.db``` in the ```/backend/api/instance``` directory that will be used to store user accounts and all trades/orders that the user makes.
+
+this will create a SQLite DB instance named ```database.db``` in the ```/backend/api/instance``` directory that will be used to store user accounts and all trades/orders that the user makes. Check that your DB was created correctly by checking that the executing the following commands from your terminal,
+```bash
+cd instance
+sqlite3 database.db
+>sqlite .tables
+```
+you should then see ```orders  user``` indicating that both the orders and user tables were created successfully.
+
 
 ## MadHacks `23 Project Description
 ### Inspiration
