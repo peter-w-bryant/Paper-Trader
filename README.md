@@ -36,7 +36,7 @@ this will create a SQLite DB instance named ```database.db``` in the ```/backend
 ```bash
 cd instance
 sqlite3 database.db
->sqlite .tables
+sqlite> .tables
 ```
 you should then see ```orders  user``` indicating that both the orders and user tables were created successfully.
 
