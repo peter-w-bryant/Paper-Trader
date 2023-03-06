@@ -74,6 +74,18 @@ this will start your frontend React development server and will open a window in
 
 ## Demo
 
+### Search
+https://user-images.githubusercontent.com/72423203/223184813-8234e992-d0e9-4f1d-9a11-0e9b4595e6b0.mp4
+
+### Login/Registration
+https://user-images.githubusercontent.com/72423203/223186091-e95f2943-edf4-4547-ad99-e795a732e60d.mp4
+
+### Execute Orders & User Dashboard
+https://user-images.githubusercontent.com/72423203/223188000-89b958c3-3116-48c6-8e03-24a7b064656d.mp4
+
+### Quick Filters
+https://user-images.githubusercontent.com/72423203/223188381-c9ef0d55-a207-482f-8c7a-39c66a03c5d9.mp4
+
 ## MadHacks `23 Project Description
 ### Inspiration
 A paper trade is a simulated trade that allows an investor to practice buying and selling without risking real money. We were inspired to make an application where users could make an account and order trades to test their investment performance before they risk their own money trading in real markets. 
