@@ -56,25 +56,7 @@ function User(props){
         // get values from array in info.current_holdings which is an array of objects from which we need the ticker and total_value
         if (info.current_holdings !== null)
             for( let i = 0; i < info.current_holdings.length; i++){
-                // let x = (info.current_holdings[i].total_value/(10000-info.balance))*100;
-                // x=Math.round(x * 10) / 10
 
-                // // temp.push([info.current_holdings[i].ticker, x]); 
-                // let tickerI = tickers.filter(ticker => ticker.symbol === info.current_holdings[i].ticker)[0];
-                // tickerI.total_value = info.current_holdings[i].total_value;
-
-                // if(portfolioList.filter(ticker => ticker.symbol === info.current_holdings[i].ticker).length > 0){
-                //     let tickerAlreadyThere =  portfolioList.filter(ticker => ticker.symbol === info.current_holdings[i].ticker)[0] ;
-                //     tickerAlreadyThere.total_value = Math.round((tickerAlreadyThere.total_value + info.current_holdings[i].total_value) * 100) / 100;
-                //     for (let j = 0; j < temp.length; j++) {
-                //         if (temp[j][0] === info.current_holdings[i].ticker) {
-                //             temp[j][1] = (Math.round((x+temp[j][1]) * 10) / 10);
-                //         }
-                //     }
-                // } else {
-                //     portfolioList.push(tickerI);
-                //     temp.push([info.current_holdings[i].ticker, x]); 
-                // }
 
                 // if temp already has the ticker, add the total value to the total value of the ticker in temp
                 if( temp.filter(ticker => ticker[0] === info.current_holdings[i].ticker).length === 0){
@@ -99,7 +81,6 @@ function User(props){
                 tickerToAdd.total_value = Math.round(totalValue * 100) / 100;
                 portfolioList.push(tickerToAdd);
             }
-
 
 
         setDonutInfo(temp);
